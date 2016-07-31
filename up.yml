@@ -1,0 +1,52 @@
+---
+- hosts: localhost
+  connection: local
+
+  tasks:       
+    - name: Create the ports
+      os_port:
+        cloud: "{{cloud_env}}"
+        state: present
+        name: "{{hostvars[item]['inventory_hostname']}}" 
+        network: "{{net}}"
+        fixed_ips:
+          - ip_address: "{{hostvars[item]['fixed_ip']}}"
+      with_items: "{{groups['all']}}"
+      when:
+        - "\"{{hostvars[item]['inventory_hostname']}}\" != 'localhost'"
+
+
+    - name: Boot the cluster
+      os_server:
+        cloud: "{{cloud_env}}"
+        name: "{{hostvars[item]['inventory_hostname']}}" 
+        state: present
+        nics:
+          - port-name: "{{hostvars[item]['inventory_hostname']}}" 
+        image: "{{image}}"
+        flavor: "{{flavor}}"
+        key_name: "{{key_name}}"
+        floating_ips:
+          "{{hostvars[item]['ansible_host']}}"
+        security_groups: "{{security_groups}}"
+      with_items: "{{groups['all']}}"
+      when:
+        - "\"{{hostvars[item]['inventory_hostname']}}\" != 'localhost'"
+
+- hosts: nodes,masters
+  gather_facts: false
+  tasks:
+    - name: Wait until ssh is available
+      command: >
+        ssh
+        -o BatchMode=yes
+        -o UserKnownHostsFile=/dev/null
+        -o StrictHostKeyChecking=no
+        -i ~/.ssh/k8s.pem
+        {{ansible_user}}@{{ansible_host}} true
+      connection: local
+      register: result
+      until: result|success
+      retries: 300
+      delay: 5
+      changed_when: False

@@ -1,0 +1,7 @@
+net: private-network
+image: 'fedora23-dib'
+flavor: 'gp1.warpspeed'
+security_groups:
+  - default
+key_name: k8s
+cloud_env: 'main'
