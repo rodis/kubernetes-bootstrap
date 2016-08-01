@@ -33,7 +33,7 @@
       when:
         - "\"{{hostvars[item]['inventory_hostname']}}\" != 'localhost'"
 
-- hosts: nodes,masters
+- hosts: all
   gather_facts: false
   tasks:
     - name: Wait until ssh is available
