@@ -4,4 +4,4 @@ flavor: 'gp1.warpspeed'
 security_groups:
   - default
 key_name: k8s
-cloud_env: 'main'
+cloud_env: 'dev'
