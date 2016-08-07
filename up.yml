@@ -3,7 +3,7 @@
   connection: local
 
   tasks:       
-    - name: Create the ports
+    - name: Create ports for the master nodes
       os_port:
         cloud: "{{cloud_env}}"
         state: present
@@ -16,7 +16,7 @@
         - "\"{{hostvars[item]['inventory_hostname']}}\" != 'localhost'"
 
 
-    - name: Boot the cluster
+    - name: Boot master nodes
       os_server:
         cloud: "{{cloud_env}}"
         name: "{{hostvars[item]['inventory_hostname']}}" 
@@ -29,9 +29,30 @@
         floating_ips:
           "{{hostvars[item]['ansible_host']}}"
         security_groups: "{{security_groups}}"
+        meta:
+          groups: masters,nodes,etcd
       with_items: "{{groups['all']}}"
       when:
-        - "\"{{hostvars[item]['inventory_hostname']}}\" != 'localhost'"
+        - "\"{{hostvars[item]['inventory_hostname']}}\" == 'kube-master-1'"
+
+    - name: Boot kube  nodes
+      os_server:
+        cloud: "{{cloud_env}}"
+        name: "{{hostvars[item]['inventory_hostname']}}" 
+        state: present
+        nics:
+          - port-name: "{{hostvars[item]['inventory_hostname']}}" 
+        image: "{{image}}"
+        flavor: "{{flavor}}"
+        key_name: "{{key_name}}"
+        floating_ips:
+          "{{hostvars[item]['ansible_host']}}"
+        security_groups: "{{security_groups}}"
+        meta:
+          group: nodes
+      with_items: "{{groups['all']}}"
+      when:
+        - "\"{{hostvars[item]['inventory_hostname']}}\" != 'kube-master-1'"
 
 - hosts: all
   gather_facts: false
