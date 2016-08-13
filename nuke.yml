@@ -10,7 +10,7 @@
         cloud: "{{cloud_env}}"
         name: "{{hostvars[item]['inventory_hostname']}}" 
         state: absent
-      with_items: "{{groups['allnodes']}}"
+      with_items: "{{groups['all_nodes']}}"
       when:
         - "\"{{hostvars[item]['inventory_hostname']}}\" != 'localhost'"
 
@@ -19,6 +19,6 @@
         cloud: "{{cloud_env}}"
         state: absent
         name: "{{hostvars[item]['inventory_hostname']}}" 
-      with_items: "{{groups['all']}}"
+      with_items: "{{groups['all_nodes']}}"
       when:
         - "\"{{hostvars[item]['inventory_hostname']}}\" != 'localhost'"
