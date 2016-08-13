@@ -11,8 +11,6 @@
         name: "{{hostvars[item]['inventory_hostname']}}" 
         state: absent
       with_items: "{{groups['all_nodes']}}"
-      when:
-        - "\"{{hostvars[item]['inventory_hostname']}}\" != 'localhost'"
 
     - name: Delete the ports
       os_port:
@@ -20,5 +18,3 @@
         state: absent
         name: "{{hostvars[item]['inventory_hostname']}}" 
       with_items: "{{groups['all_nodes']}}"
-      when:
-        - "\"{{hostvars[item]['inventory_hostname']}}\" != 'localhost'"
