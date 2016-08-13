@@ -68,6 +68,6 @@
       connection: local
       register: result
       until: result|success
-      retries: 300
+      retries: 50
       delay: 5
       changed_when: False
