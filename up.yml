@@ -30,12 +30,12 @@
           "{{hostvars[item]['ansible_host']}}"
         security_groups: "{{security_groups}}"
         meta:
-          groups: masters,nodes,etcd
+          groups: masters,etcd
       with_items: "{{groups['all']}}"
       when:
         - "\"{{hostvars[item]['inventory_hostname']}}\" == 'kube-master-1'"
 
-    - name: Boot kube  nodes
+    - name: Boot kube nodes
       os_server:
         cloud: "{{cloud_env}}"
         name: "{{hostvars[item]['inventory_hostname']}}" 
