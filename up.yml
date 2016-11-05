@@ -33,7 +33,7 @@
           groups: masters,etcd
       with_items: "{{groups['all']}}"
       when:
-        - "\"{{hostvars[item]['inventory_hostname']}}\" == 'kube-master-1'"
+        - "'kube-master' in \"{{hostvars[item]['inventory_hostname']}}\""
 
     - name: Boot kube nodes
       os_server:
@@ -52,7 +52,7 @@
           group: nodes
       with_items: "{{groups['all']}}"
       when:
-        - "\"{{hostvars[item]['inventory_hostname']}}\" != 'kube-master-1'"
+        - "'kube-master' not in \"{{hostvars[item]['inventory_hostname']}}\""
 
 - hosts: all
   gather_facts: false
