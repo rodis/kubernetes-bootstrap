@@ -1,0 +1,15 @@
+---
+- hosts: blue
+
+  tasks:
+    - name: Pre-install
+      docker_container:
+        name: kargo
+        image: rods/kargo
+        command: ansible-playbook /root/repo/kargo/cluster.yml -i /root/repo/kargo/inventory/inventory.cfg -t bootstrap-os -u ubuntu --key-file=/root/.ssh/id_rsa -e bootstrap_os=ubuntu -s
+        state: started
+        volumes:
+          - /home/ubuntu/kargo/conf:/etc/kargo:rw
+          - /home/ubuntu/kargo/ssh:/root/.ssh:rw
+          - /home/ubuntu/kargo/repo:/root/repo:rw
+        detach: False

@@ -1,0 +1,15 @@
+---
+- hosts: blue
+
+  tasks:
+    - name: Install Kubernetes
+      docker_container:
+        name: kargo
+        image: rods/kargo
+        command: kargo deploy -y -u ubuntu -p /root/repo/kargo
+        state: started
+        volumes:
+          - /home/ubuntu/kargo/conf:/etc/kargo:rw
+          - /home/ubuntu/kargo/ssh:/root/.ssh:rw
+          - /home/ubuntu/kargo/repo:/root/repo:rw
+        detach: False
