@@ -1,0 +1,40 @@
+---
+- hosts: blue
+
+  tasks:
+    - name: Bootstrap the cluster
+      docker_container:
+        name: kargo
+        image: rods/kargo
+        command: kargo openstack -y --masters 1 --nodes 2 -p /root/repo/kargo --noclone
+        state: started
+        volumes:
+          - /home/ubuntu/kargo/conf:/etc/kargo:rw
+          - /home/ubuntu/kargo/ssh:/root/.ssh:rw
+          - /home/ubuntu/kargo/repo:/root/repo:rw
+        detach: False
+
+    - name: Pre-install
+      docker_container:
+        name: kargo
+        image: rods/kargo
+        command: ansible-playbook /root/repo/kargo/cluster.yml -i /root/repo/kargo/inventory/inventory.cfg -t bootstrap-os -u ubuntu --key-file=/root/.ssh/id_rsa -e bootstrap_os=ubuntu -s
+        state: started
+        volumes:
+          - /home/ubuntu/kargo/conf:/etc/kargo:rw
+          - /home/ubuntu/kargo/ssh:/root/.ssh:rw
+          - /home/ubuntu/kargo/repo:/root/repo:rw
+        detach: False
+        #network_mode: bridge
+
+    - name: Install Kubernetes
+      docker_container:
+        name: kargo
+        image: rods/kargo
+        command: kargo deploy -y -u ubuntu -p /root/repo/kargo
+        state: started
+        volumes:
+          - /home/ubuntu/kargo/conf:/etc/kargo:rw
+          - /home/ubuntu/kargo/ssh:/root/.ssh:rw
+          - /home/ubuntu/kargo/repo:/root/repo:rw
+        detach: False
