@@ -1,7 +1,10 @@
 net: private-network
-image: 'fedora23-dib'
-flavor: 'gp1.warpspeed'
+image: 'Ubuntu-16.04'
+masters_num: 1
+masters_flavor: 'gp1.supersonic'
+nodes_num: 2
+nodes_flavor: 'gp1.supersonic'
 security_groups:
-  - default
+  - k8s
 key_name: k8s
 cloud_env: 'dev'

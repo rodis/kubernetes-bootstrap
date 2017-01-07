@@ -3,71 +3,48 @@
   connection: local
 
   tasks:       
-    - name: Create ports for the master nodes
+    - name: Create ports for the kube masters
       os_port:
         cloud: "{{cloud_env}}"
         state: present
-        name: "{{hostvars[item]['inventory_hostname']}}" 
+        name: "{{item}}" 
         network: "{{net}}"
-        fixed_ips:
-          - ip_address: "{{hostvars[item]['fixed_ip']}}"
-      with_items: "{{groups['all']}}"
-      when:
-        - "\"{{hostvars[item]['inventory_hostname']}}\" != 'localhost'"
+      with_sequence: count={{masters_num}} format=k8s-master-%d
 
-
-    - name: Boot master nodes
+    - name: Boot kube masters
       os_server:
         cloud: "{{cloud_env}}"
-        name: "{{hostvars[item]['inventory_hostname']}}" 
+        name: "{{item}}" 
         state: present
         nics:
-          - port-name: "{{hostvars[item]['inventory_hostname']}}" 
+          - port-name: "{{ item }}" 
         image: "{{image}}"
-        flavor: "{{flavor}}"
+        flavor: "{{masters_flavor}}"
         key_name: "{{key_name}}"
-        floating_ips:
-          "{{hostvars[item]['ansible_host']}}"
         security_groups: "{{security_groups}}"
         meta:
-          groups: masters,etcd
-      with_items: "{{groups['all']}}"
-      when:
-        - "'kube-master' in \"{{hostvars[item]['inventory_hostname']}}\""
+          group: kube-master
+      with_sequence: count={{masters_num}} format=k8s-master-%d
+
+    - name: Create ports for the kube nodes
+      os_port:
+        cloud: "{{cloud_env}}"
+        state: present
+        name: "{{item}}" 
+        network: "{{net}}"
+      with_sequence: count={{nodes_num}} format=k8s-node-%d
 
     - name: Boot kube nodes
       os_server:
         cloud: "{{cloud_env}}"
-        name: "{{hostvars[item]['inventory_hostname']}}" 
+        name: "{{item}}" 
         state: present
         nics:
-          - port-name: "{{hostvars[item]['inventory_hostname']}}" 
+          - port-name: "{{item}}" 
         image: "{{image}}"
-        flavor: "{{flavor}}"
+        flavor: "{{nodes_flavor}}"
         key_name: "{{key_name}}"
-        floating_ips:
-          "{{hostvars[item]['ansible_host']}}"
         security_groups: "{{security_groups}}"
         meta:
-          group: nodes
-      with_items: "{{groups['all']}}"
-      when:
-        - "'kube-master' not in \"{{hostvars[item]['inventory_hostname']}}\""
-
-- hosts: all
-  gather_facts: false
-  tasks:
-    - name: Wait until ssh is available
-      command: >
-        ssh
-        -o BatchMode=yes
-        -o UserKnownHostsFile=/dev/null
-        -o StrictHostKeyChecking=no
-        -i ~/.ssh/k8s.pem
-        {{ansible_user}}@{{ansible_host}} true
-      connection: local
-      register: result
-      until: result|success
-      retries: 50
-      delay: 5
-      changed_when: False
+          groups: kube-node,etcd
+      with_sequence: count={{nodes_num}} format=k8s-node-%d
