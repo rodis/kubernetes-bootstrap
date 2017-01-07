@@ -6,7 +6,7 @@
       docker_container:
         name: kargo
         image: rods/kargo
-        command: ansible-playbook /root/repo/kargo/cluster.yml -i /root/repo/kargo/inventory/inventory.cfg -t bootstrap-os -u ubuntu --key-file=/root/.ssh/id_rsa -e bootstrap_os=ubuntu -s
+        command: ansible-playbook /root/repo/kargo/cluster.yml -i /root/repo/kargo/inventory/inventory.cfg -u ubuntu --key-file=/root/.ssh/id_rsa -s --ssh-extra-args="-o StrictHostKeyChecking=no"
         state: started
         volumes:
           - /home/ubuntu/kargo/conf:/etc/kargo:rw
