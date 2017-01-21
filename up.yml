@@ -5,7 +5,6 @@
   tasks:       
     - name: Create ports for the kube masters
       os_port:
-        cloud: "{{cloud_env}}"
         state: present
         name: "{{item}}" 
         network: "{{net}}"
@@ -13,7 +12,6 @@
 
     - name: Boot kube masters
       os_server:
-        cloud: "{{cloud_env}}"
         name: "{{item}}" 
         state: present
         nics:
@@ -28,7 +26,6 @@
 
     - name: Create ports for the kube nodes
       os_port:
-        cloud: "{{cloud_env}}"
         state: present
         name: "{{item}}" 
         network: "{{net}}"
@@ -36,7 +33,6 @@
 
     - name: Boot kube nodes
       os_server:
-        cloud: "{{cloud_env}}"
         name: "{{item}}" 
         state: present
         nics:
