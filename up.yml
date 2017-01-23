@@ -22,7 +22,14 @@
         security_groups: "{{security_groups}}"
         meta:
           group: kube-master
+      register: kube_masters
       with_sequence: count={{masters_num}} format=k8s-master-%d
+
+    - add_host: name={{item.server.public_v4}}
+                groups=created_nodes
+                ansible_user=ubuntu
+                instance_name={{item.server.name}}
+      with_items: "{{kube_masters.results}}"
 
     - name: Create ports for the kube nodes
       os_port:
@@ -43,4 +50,20 @@
         security_groups: "{{security_groups}}"
         meta:
           groups: kube-node,etcd
+      register: kube_nodes
       with_sequence: count={{nodes_num}} format=k8s-node-%d
+
+    - add_host: name={{item.server.public_v4}}
+                groups=created_nodes
+                instance_name={{item.server.name}}
+      with_items: "{{kube_nodes.results}}"
+
+- name: Configure nodes
+  hosts: created_nodes
+  become: yes
+  become_method: sudo
+  gather_facts: false
+
+  tasks:
+    - name: "Wait for SSH banners"
+      local_action: wait_for port=22 host="{{inventory_hostname}}" search_regex=OpenSSH delay=5
