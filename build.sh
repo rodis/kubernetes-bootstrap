@@ -7,4 +7,4 @@ curl https://gist.githubusercontent.com/rodis/0d72933ca59bce91fab2e15a91b76721/r
 chmod +x .kargo/inventory/openstack.py
 cd .kargo
 export OS_TENANT_ID="e3b871e953934eb7b9db47edbce06694"
-ansible-playbook -i inventory cluster.yml -e "bootstrap_os=ubuntu" -e "cloud_provider=openstack" --ssh-extra-args="-o StrictHostKeyChecking=no" --private-key /root/.ssh/k8s -s -u ubuntu
+ansible-playbook -i inventory cluster.yml -e "bootstrap_os=ubuntu" -e "cloud_provider=openstack" -e "kube_version=1.5.2" --ssh-extra-args="-o StrictHostKeyChecking=no" --private-key /root/.ssh/k8s -s -u ubuntu
