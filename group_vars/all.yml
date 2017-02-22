@@ -4,6 +4,7 @@ masters_num: 1
 masters_flavor: 'gp1.supersonic'
 nodes_num: 2
 nodes_flavor: 'gp1.supersonic'
-security_groups: 'k8s'
+security_groups:
+  - 'k8s'
 key_name: k8s
 cloud_env: 'dev'
