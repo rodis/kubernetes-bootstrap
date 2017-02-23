@@ -1,0 +1,10 @@
+---
+- hosts: kube-master[0]
+
+  tasks:
+    - name: Checkout certificate
+      fetch:
+        src: /etc/kubernetes/ssl/apiserver.pem
+        dest: /buddy/kubernetes/certs/
+        fail_on_missing: yes
+        flat: yes
