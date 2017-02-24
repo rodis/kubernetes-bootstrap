@@ -12,7 +12,7 @@ RUN chmod +x /usr/local/bin/kubectl
 # Basic check it works.
 RUN kubectl version --client
 
-ADD cert /root/certs
+ADD certs /root/certs
 RUN mkdir -p /root/.kube
 Add config /root/.kube
 
