@@ -14,5 +14,5 @@ clusters:
 users:
 - name: default
   user:
-    client-certificate: /root/cert/apiserver.pem
-    client-key: /root/cert/apiserver-key.pem
+    client-certificate: /root/certs/apiserver.pem
+    client-key: /root/certs/apiserver-key.pem
