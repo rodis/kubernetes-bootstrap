@@ -8,6 +8,8 @@
     docker_image_tag: "latest"
     execute_commands:
     - "echo rosario"
+    - "echo di"
+    - "echo somma"
     setup_commands:
     - "apk update"
     - "apk add python2 py2-pip gcc python2-dev musl-dev libffi-dev"
