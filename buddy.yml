@@ -13,7 +13,7 @@
     - "export OS_TENANT_ID=db5218670782412f95eb22be133f96c5"
     - "export OS_PASSWORD=Z8GZgUhiCksn"
     - "export OS_USER_DOMAIN_NAME=Default"
-    - |
+    - >
         ansible-playbook -i .kargo/inventory
         --private-key /root/.ssh/k8s
         -e 'masters_num=2'
