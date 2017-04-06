@@ -4,7 +4,7 @@
   actions:
   - action: "Bootstrap the OS cluster"
     type: "BUILD"
-    docker_image_name: "alpine
+    docker_image_name: "alpine"
     docker_image_tag: "latest"
     execute_commands:
     - "export OS_AUTH_URL=https://os.ch-ti1.server.one/v3"
