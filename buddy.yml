@@ -48,7 +48,16 @@
     - "cp inventory/static .kargo/inventory"
     - "chmod +x .kargo/inventory/openstack.py"
     - "cd .kargo"
-    - "ansible-playbook -vv -i inventory cluster.yml -e 'bootstrap_os=ubuntu' -e 'kube_version=v1.5.2' -e 'nginx_kube_apiserver_port=8443' --ssh-extra-args='-o StrictHostKeyChecking=no' --private-key /root/.ssh/k8s -s -u ubuntu"
+    - >
+        ansible-playbook
+        -i inventory cluster.yml 
+        -e 'bootstrap_os=ubuntu' 
+        -e 'kube_version=v1.5.2' 
+        -e 'nginx_kube_apiserver_port=8443' 
+        --ssh-extra-args='-o StrictHostKeyChecking=no' 
+        --private-key /root/.ssh/k8s 
+        -s 
+        -u ubuntu
     setup_commands:
     - "apk update"
     - "apk add python2 py2-pip gcc python2-dev musl-dev libffi-dev"
