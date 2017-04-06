@@ -34,7 +34,7 @@
     - "export OS_USER_DOMAIN_NAME=Default"
     - "rm -rf .kargo"
     - "git clone https://github.com/rodis/kargo.git .kargo"
-    - "rm `ls -d -1 .kargo/inventory/* | grep -v group_vars`""
+    - "rm `ls -d -1 .kargo/inventory/* | grep -v group_vars`"
     - "cp inventory/openstack.py .kargo/inventory"
     - "cp inventory/static .kargo/inventory"
     - "chmod +x .kargo/inventory/openstack.py"
