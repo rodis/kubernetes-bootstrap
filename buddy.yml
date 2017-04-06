@@ -14,15 +14,15 @@
     - "export OS_PASSWORD=Z8GZgUhiCksn"
     - "export OS_USER_DOMAIN_NAME=Default"
     - |
-      ansible-playbook -i .kargo/inventory
-      --private-key /root/.ssh/k8s
-      -e 'masters_num=2'
-      -e 'nodes_num=3'
-      -e 'masters_flavor=m1.small'
-      -e 'nodes_flavor=m1.large'
-      -e 'image=0d69bf12-e518-43d3-b5e5-5f3369a2d572'
-      -e 'security_groups=default'
-      up.yml
+        ansible-playbook -i .kargo/inventory
+        --private-key /root/.ssh/k8s
+        -e 'masters_num=2'
+        -e 'nodes_num=3'
+        -e 'masters_flavor=m1.small'
+        -e 'nodes_flavor=m1.large'
+        -e 'image=0d69bf12-e518-43d3-b5e5-5f3369a2d572'
+        -e 'security_groups=default'
+        up.yml
     setup_commands:
     - "apk update"
     - "apk add python2 py2-pip gcc python2-dev musl-dev libffi-dev"
