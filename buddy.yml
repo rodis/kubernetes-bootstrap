@@ -42,7 +42,7 @@
     - "export OS_PASSWORD=Z8GZgUhiCksn"
     - "export OS_USER_DOMAIN_NAME=Default"
     - "rm -rf .kargo"
-    - "git clone https://github.com/rodis/kargo.git .kargo"
+    - "git clone https://github.com/kubernetes-incubator/kargo .kargo"
     - "rm `ls -d -1 .kargo/inventory/* | grep -v group_vars`"
     - "cp inventory/openstack.py .kargo/inventory"
     - "cp inventory/static .kargo/inventory"
@@ -50,13 +50,12 @@
     - "cd .kargo"
     - >
         ansible-playbook
-        -i inventory cluster.yml 
-        -e 'bootstrap_os=ubuntu' 
-        -e 'kube_version=v1.5.2' 
-        -e 'nginx_kube_apiserver_port=8443' 
-        --ssh-extra-args='-o StrictHostKeyChecking=no' 
-        --private-key /root/.ssh/k8s 
-        -s 
+        -i inventory cluster.yml
+        -e 'bootstrap_os=ubuntu'
+        -e 'nginx_kube_apiserver_port=8443'
+        --ssh-extra-args='-o StrictHostKeyChecking=no'
+        --private-key /root/.ssh/k8s
+        -s
         -u ubuntu
     setup_commands:
     - "apk update"
