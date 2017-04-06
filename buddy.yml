@@ -1,4 +1,4 @@
-- pipeline: "Zurich - Build Kubernetes Cluster"
+- pipeline: "Build cluster"
   trigger_mode: "MANUAL"
   ref_name: "master"
   actions:
