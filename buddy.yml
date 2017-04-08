@@ -70,6 +70,7 @@
     docker_image_tag: "latest"
     execute_commands:
     - "source ./credentials"
+    - "ls -lah"
     - >
         ansible-playbook
         --private-key /root/.ssh/k8s
