@@ -1,0 +1,24 @@
+- name: Create a dynamic inventory
+  hosts: localhost
+  tasks:
+  - name: Refresh node facts after floating IP attach
+    os_server_facts:
+    server: "^k8s-*"
+  
+  - name: Add all nodes to the inventory
+    add_host:
+      name: "{{item.name}}"
+      groups:
+        - "all"
+      ansible_host: "{{item.public_v4}}"
+      ansible_user: "{{ansible_user}}"
+      ansible_ssh_private_key_file: "{{key}}"
+      ansible_ssh_common_args: -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+    with_items:
+      - "{{openstack_servers}}"
+
+- name: Ping all servers
+  hosts: all
+  task:
+  - name: Ping
+    ping:
