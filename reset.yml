@@ -15,9 +15,4 @@
     with_items:
       - "{{openstack_servers}}"
 
-- name: Ping all servers
-  hosts: all
-  tasks:
-  - action: ping
-
 - include: .kargo/reset.yml
