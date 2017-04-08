@@ -70,7 +70,7 @@
     docker_image_tag: "latest"
     execute_commands:
     - "source ./credentials"
-    - "ls -lah"
+    - "git clone https://github.com/kubernetes-incubator/kargo .kargo"
     - >
         ansible-playbook
         --private-key /root/.ssh/k8s
