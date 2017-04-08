@@ -3,7 +3,7 @@
   tasks:
   - name: Refresh node facts after floating IP attach
     os_server_facts:
-    server: "^k8s-*"
+      server: "^k8s-*"
   
   - name: Add all nodes to the inventory
     add_host:
