@@ -19,3 +19,5 @@
   hosts: all
   tasks:
   - action: ping
+
+- include: .kargo/reset.yml
