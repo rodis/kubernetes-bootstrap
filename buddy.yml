@@ -49,6 +49,8 @@
         -e 'bootstrap_os=ubuntu'
         -e 'nginx_kube_apiserver_port=8443'
         -e 'kube_network_plugin=flannel'
+        -e '{"loadbalancer_apiserver": {"address": "192.168.0.12","port": 8080}}'
+        -e 'apiserver_loadbalancer_domain_name=lb-apiserver.kubernetes.local'
         --ssh-extra-args='-o StrictHostKeyChecking=no'
         --private-key /root/.ssh/k8s
         -s
