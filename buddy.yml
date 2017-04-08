@@ -7,12 +7,7 @@
     docker_image_name: "alpine"
     docker_image_tag: "latest"
     execute_commands:
-    - "export OS_AUTH_URL=https://os.ch-ti1.server.one/v3"
-    - "export OS_USERNAME=rods"
-    - "export OS_REGION_NAME=ch-ti1"
-    - "export OS_TENANT_ID=db5218670782412f95eb22be133f96c5"
-    - "export OS_PASSWORD=Z8GZgUhiCksn"
-    - "export OS_USER_DOMAIN_NAME=Default"
+    - "source ./credentials"
     - >
         ansible-playbook 
         -i .kargo/inventory 
