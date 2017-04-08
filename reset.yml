@@ -11,7 +11,7 @@
       groups:
         - "all"
       ansible_host: "{{item.public_v4}}"
-      ansible_user: "{{ansible_user}}"
+      ansible_user: "ubuntu"
       ansible_ssh_common_args: -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
     with_items:
       - "{{openstack_servers}}"
