@@ -1,7 +1,7 @@
 - name: Create a dynamic inventory
   hosts: localhost
   tasks:
-  - name: Refresh node facts after floating IP attach
+  - name: Get nodes list
     os_server_facts:
       server: "^k8s-*"
   
