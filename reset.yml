@@ -19,6 +19,6 @@
 
 - name: Ping all servers
   hosts: all
-  task:
+  tasks:
   - name: Ping
     ping:
