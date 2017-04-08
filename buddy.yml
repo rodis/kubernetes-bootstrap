@@ -73,6 +73,7 @@
     - >
         ansible-playbook
         --private-key /root/.ssh/k8s
+        -u ubuntu
         -vvvvv
         reset.yml
     setup_commands:
