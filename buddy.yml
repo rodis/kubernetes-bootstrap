@@ -4,7 +4,7 @@
   actions:
   - action: "Bootstrap the OS cluster"
     type: "BUILD"
-    docker_image_name: "alpine"
+    docker_image_name: "rodis/ansible-builder"
     docker_image_tag: "latest"
     execute_commands:
     - "source ./credentials"
@@ -18,13 +18,6 @@
         -e 'nodes_flavor=m1.large'
         -e 'image=0d69bf12-e518-43d3-b5e5-5f3369a2d572'
         -e 'security_groups=default' up.yml
-    setup_commands:
-    - "apk update"
-    - "apk add python2 py2-pip gcc python2-dev musl-dev libffi-dev"
-    - "apk add openssl-dev ca-certificates linux-headers coreutils git"
-    - "pip install -U pip"
-    - "pip install -U ansible"
-    - "pip install -U shade"
   - action: "Build Kubernetes"
     type: "BUILD"
     docker_image_name: "alpine"
