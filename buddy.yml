@@ -17,7 +17,8 @@
         -e 'masters_flavor=m1.small'
         -e 'nodes_flavor=m1.large'
         -e 'image=0d69bf12-e518-43d3-b5e5-5f3369a2d572'
-        -e 'security_groups=default' up.yml
+        -e 'security_groups=default'
+        up.yml
   - action: "Build Kubernetes"
     type: "BUILD"
     docker_image_name: "alpine"
@@ -37,12 +38,9 @@
         -e 'bootstrap_os=ubuntu'
         -e 'nginx_kube_apiserver_port=8443'
         -e 'kube_network_plugin=flannel'
-        -e '{"loadbalancer_apiserver": {"address": "192.168.0.12","port": 8080}}'
-        -e 'apiserver_loadbalancer_domain_name=lb-apiserver.kubernetes.local'
         --ssh-extra-args='-o StrictHostKeyChecking=no'
         --private-key /root/.ssh/k8s
-        -s
-        -u ubuntu
+        -s -u ubuntu
         cluster.yml
     setup_commands:
     - "apk update"
@@ -57,7 +55,7 @@
   actions:
   - action: "Reset the kubenetes cluster"
     type: "BUILD"
-    docker_image_name: "alpine"
+    docker_image_name: "rodis/ansible-builder"
     docker_image_tag: "latest"
     execute_commands:
     - "source ./credentials"
@@ -67,14 +65,5 @@
         ansible-playbook
         --private-key /root/.ssh/k8s
         -e reset_confirmation=yes
-        -u ubuntu
-        -s
-        -vvvvv
+        -s -u ubuntu
         reset.yml
-    setup_commands:
-    - "apk update"
-    - "apk add python2 py2-pip gcc python2-dev musl-dev libffi-dev"
-    - "apk add openssl-dev ca-certificates linux-headers coreutils git"
-    - "pip install -U pip"
-    - "pip install -U ansible"
-    - "pip install -U shade"
