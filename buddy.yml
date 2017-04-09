@@ -21,7 +21,7 @@
         up.yml
   - action: "Build Kubernetes"
     type: "BUILD"
-    docker_image_name: "alpine"
+    docker_image_name: "rodis/ansible-builder"
     docker_image_tag: "latest"
     execute_commands:
     - "source ./credentials"
@@ -42,13 +42,6 @@
         --private-key /root/.ssh/k8s
         -s -u ubuntu
         cluster.yml
-    setup_commands:
-    - "apk update"
-    - "apk add python2 py2-pip gcc python2-dev musl-dev libffi-dev"
-    - "apk add openssl-dev ca-certificates linux-headers coreutils git"
-    - "pip install -U pip"
-    - "pip install -U ansible"
-    - "pip install -U shade"
 - pipeline: "Reset"
   trigger_mode: "MANUAL"
   ref_name: "master"
