@@ -10,7 +10,7 @@
     - "source ./credentials"
     - >
         ansible-playbook
-        -i .kargo/inventory
+        -i inventory
         --private-key /root/.ssh/k8s
         -e @environments/stage-dhc.json
         up.yml
