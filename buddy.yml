@@ -7,8 +7,8 @@
     docker_image_name: "rodis/ansible-builder"
     docker_image_tag: "latest"
     execute_commands:
-    - "env"
     - "source ./credentials"
+    - "env"
     - >
         ansible-playbook
         -i inventory
