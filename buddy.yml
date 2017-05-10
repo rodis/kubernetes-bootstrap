@@ -1,4 +1,4 @@
-- pipeline: "Build cluster"
+- pipeline: "Build"
   trigger_mode: "MANUAL"
   ref_name: "master"
   actions:
