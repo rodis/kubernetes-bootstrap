@@ -10,6 +10,7 @@
     - "env"
     - >
         ansible-playbook
+        -vvv
         -i inventory
         --private-key /root/.ssh/k8s
         -e @environments/stage-dhc.json
