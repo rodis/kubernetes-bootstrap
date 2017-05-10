@@ -19,7 +19,7 @@
     docker_image_name: "rodis/ansible-builder"
     docker_image_tag: "latest"
     execute_commands:
-    - "source ./credentials"
+    - "env"
     - "rm -rf .kargo"
     - "git clone https://github.com/kubernetes-incubator/kargo .kargo"
     - "rm `ls -d -1 .kargo/inventory/* | grep -v group_vars`"
