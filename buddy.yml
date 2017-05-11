@@ -10,7 +10,6 @@
     - "env"
     - >
         ansible-playbook
-        -vvv
         --private-key /root/.ssh/k8s
         -e @environments/stage-dhc.json
         up.yml
@@ -21,7 +20,7 @@
     execute_commands:
     - "env"
     - "rm -rf .kargo"
-    - "git clone https://github.com/kubernetes-incubator/kargo .kargo"
+    - "git clone https://github.com/rodis/kargo .kargo"
     - "rm `ls -d -1 .kargo/inventory/* | grep -v group_vars`"
     - "cp inventory/openstack.py .kargo/inventory"
     - "cp inventory/static .kargo/inventory"
@@ -49,7 +48,7 @@
     execute_commands:
     - "source ./credentials"
     - "rm -rf .kargo"
-    - "git clone https://github.com/kubernetes-incubator/kargo .kargo"
+    - "git clone https://github.com/rodis/kargo .kargo"
     - >
         ansible-playbook
         --private-key /root/.ssh/k8s
