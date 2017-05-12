@@ -47,7 +47,6 @@
     docker_image_name: "rodis/ansible-builder"
     docker_image_tag: "latest"
     execute_commands:
-    - "source ./credentials"
     - "rm -rf .kargo"
     - "git clone https://github.com/rodis/kargo .kargo"
     - >
