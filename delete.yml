@@ -1,0 +1,15 @@
+---
+- name: Delete the openstack cluster
+  hosts: localhost
+
+  tasks:
+  - name: Get nodes list
+    os_server_facts:
+      server: "k8s-*"
+
+  - name: Delete the nodes
+    os_server:
+      name: "{{item.name}}"
+      state: absent
+    with_items:
+      - "{{openstack_servers}}"
