@@ -7,4 +7,6 @@ nodes_flavor: 'gp1.supersonic'
 security_groups:
   - 'k8s'
 key_name: k8s
-cloud_env: 'dev'
+zone: iad
+name_prefix: k8s
+prefix: "{{zone}}-{{name_prefix}}"

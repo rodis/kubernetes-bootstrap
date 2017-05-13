@@ -8,7 +8,7 @@
         state: present
         name: "{{item}}" 
         network: "{{net}}"
-      with_sequence: count={{masters_num}} format=k8s-master-%d
+      with_sequence: count={{masters_num}} format="{{prefix}}"-master-%d
 
     - name: Boot kube masters
       os_server:
@@ -23,7 +23,7 @@
         meta:
           group: kube-master
       register: kube_masters
-      with_sequence: count={{masters_num}} format=k8s-master-%d
+      with_sequence: count={{masters_num}} format="{{prefix}}"-master-%d
 
     - add_host: name={{item.server.public_v4}}
                 groups=created_nodes
@@ -36,7 +36,7 @@
         state: present
         name: "{{item}}" 
         network: "{{net}}"
-      with_sequence: count={{nodes_num}} format=k8s-node-%d
+      with_sequence: count={{nodes_num}} format="{{prefix}}"-node-%d
 
     - name: Boot kube nodes
       os_server:
@@ -51,7 +51,7 @@
         meta:
           groups: kube-node,etcd
       register: kube_nodes
-      with_sequence: count={{nodes_num}} format=k8s-node-%d
+      with_sequence: count={{nodes_num}} format="{{prefix}}"-node-%d
 
     - add_host: name={{item.server.public_v4}}
                 groups=created_nodes
