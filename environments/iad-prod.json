@@ -1,0 +1,8 @@
+{
+  "masters_num": "2",
+  "nodes_num": "3",
+  "masters_flavor": "gp1.supersonic",
+  "nodes_flavor": "gp1.warpspeed",
+  "image": "7e76ae60-f7da-476c-b940-d62362b7cc3f",
+  "security_groups": "default"
+}
