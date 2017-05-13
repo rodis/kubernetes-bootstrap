@@ -60,3 +60,13 @@
     docker_image_tag: "latest"
     execute_commands:
     - "ansible-playbook delete.yml"
+- pipeline: "Nuke"
+  trigger_mode: "MANUAL"
+  ref_name: "master"
+  actions:
+  - action: "Nuke the openstack cluster"
+    type: "BUILD"
+    docker_image_name: "rodis/ansible-builder"
+    docker_image_tag: "latest"
+    execute_commands:
+    - "ansible-playbook nuke.yml"

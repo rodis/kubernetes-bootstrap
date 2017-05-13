@@ -1,20 +1,26 @@
 ---
-- hosts: localhost
-  connection: local
-  vars:
-    ansible_python_interpreter: python
+- name: Nuke the openstack cluster
+  hosts: localhost
 
-  tasks:       
-    - name: Delete the cluster
-      os_server:
-        cloud: "{{cloud_env}}"
-        name: "{{hostvars[item]['inventory_hostname']}}" 
-        state: absent
-      with_items: "{{groups['all_nodes']}}"
+  tasks:
+  - name: Get nodes list
+    os_server_facts:
+      server: "k8s-*"
 
-    - name: Delete the ports
-      os_port:
-        cloud: "{{cloud_env}}"
-        state: absent
-        name: "{{hostvars[item]['inventory_hostname']}}" 
-      with_items: "{{groups['all_nodes']}}"
+  - name: Delete the nodes
+    os_server:
+      name: "{{item.name}}"
+      state: absent
+    with_items:
+      - "{{openstack_servers}}"
+
+  - name: Get ports list
+    os_port_facts:
+      port: "k8s-*"
+
+  - name: Delete the ports
+    os_port:
+      state: absent
+      name: "{{item.name}}" 
+    with_items:
+      - "{{openstack_ports}}"
