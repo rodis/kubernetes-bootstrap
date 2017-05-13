@@ -5,7 +5,7 @@
   tasks:
   - name: Get nodes list
     os_server_facts:
-      server: "k8s-*"
+      server: "{{prefix}}-*"
 
   - name: Delete the nodes
     os_server:

@@ -5,7 +5,7 @@
   tasks:
   - name: Get nodes list
     os_server_facts:
-      server: "k8s-*"
+      server: "{{prefix}}-*"
 
   - name: Delete the nodes
     os_server:
@@ -16,7 +16,7 @@
 
   - name: Get ports list
     os_port_facts:
-      port: "k8s-*"
+      port: "{{prefix}}-*"
 
   - name: Delete the ports
     os_port:

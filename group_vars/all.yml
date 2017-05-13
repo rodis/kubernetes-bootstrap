@@ -6,7 +6,8 @@ nodes_num: 2
 nodes_flavor: 'gp1.supersonic'
 security_groups:
   - 'k8s'
-key_name: k8s
-zone: iad
-name_prefix: k8s
-prefix: "{{zone}}-{{name_prefix}}"
+key_name: 'k8s'
+zone: 'iad'
+environment: 'stage'
+application: 'k8s'
+prefix: '{{zone}}-{{environment}}-{{application}}'

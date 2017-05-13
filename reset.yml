@@ -3,7 +3,7 @@
   tasks:
   - name: Get nodes list
     os_server_facts:
-      server: "k8s-*"
+      server: "{{prefix}}-*"
   
   - name: Add all nodes to the inventory
     add_host:

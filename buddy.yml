@@ -7,10 +7,13 @@
     docker_image_name: "rodis/ansible-builder"
     docker_image_tag: "latest"
     execute_commands:
+    - "env"
     - >
         ansible-playbook
         --private-key /root/.ssh/k8s
-        -e @environments/stage-dhc.json
+        -e @environments/$ZONE-$ENVIRONMENT.json
+        -e 'zone=$ZONE'
+        -e 'environment=$ENVIRONMENT'
         up.yml
   - action: "Build Kubernetes"
     type: "BUILD"
