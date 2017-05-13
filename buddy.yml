@@ -21,14 +21,11 @@
     - "env"
     - "rm -rf .kargo"
     - "git clone https://github.com/rodis/kargo .kargo"
-    - "rm `ls -d -1 .kargo/inventory/* | grep -v group_vars`"
-    - "cp inventory/openstack.py .kargo/inventory"
-    - "cp inventory/static .kargo/inventory"
-    - "chmod +x .kargo/inventory/openstack.py"
-    - "cd .kargo"
     - >
         ansible-playbook
         -i inventory
+        -e '.kargo/inventory/group_vars/all.yml'
+        -e '.kargo/inventory/group_vars/k8s-cluster.yml'
         -e 'bootstrap_os=ubuntu'
         -e 'nginx_kube_apiserver_port=8443'
         -e 'kube_network_plugin=flannel'
@@ -37,7 +34,7 @@
         --ssh-extra-args='-o StrictHostKeyChecking=no'
         --private-key /root/.ssh/k8s
         -s -u ubuntu
-        cluster.yml
+        .kargo/cluster.yml
 - pipeline: "Reset"
   trigger_mode: "MANUAL"
   ref_name: "master"
