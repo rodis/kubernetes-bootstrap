@@ -7,7 +7,6 @@
     docker_image_name: "rodis/ansible-builder"
     docker_image_tag: "latest"
     execute_commands:
-    - "env"
     - >
         ansible-playbook
         --private-key /root/.ssh/k8s
@@ -18,7 +17,6 @@
     docker_image_name: "rodis/ansible-builder"
     docker_image_tag: "latest"
     execute_commands:
-    - "env"
     - "rm -rf .kargo"
     - "git clone https://github.com/rodis/kargo .kargo"
     - >
@@ -52,3 +50,13 @@
         -e reset_confirmation=yes
         -s -u ubuntu
         reset.yml
+- pipeline: "Delete"
+  trigger_mode: "MANUAL"
+  ref_name: "master"
+  actions:
+  - action: "Delete the openstack cluster"
+    type: "BUILD"
+    docker_image_name: "rodis/ansible-builder"
+    docker_image_tag: "latest"
+    execute_commands:
+    - "ansible-playbook delete.yml"
