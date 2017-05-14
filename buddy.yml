@@ -1,4 +1,4 @@
-- pipeline: "Build"
+- pipeline: "Build openstack and kubernetes"
   trigger_mode: "MANUAL"
   ref_name: "master"
   actions:
@@ -36,7 +36,7 @@
         --private-key /root/.ssh/k8s
         -s -u ubuntu
         .kargo/cluster.yml
-- pipeline: "Reset"
+- pipeline: "Reset kubernetes"
   trigger_mode: "MANUAL"
   ref_name: "master"
   actions:
@@ -53,7 +53,7 @@
         -e reset_confirmation=yes
         -s -u ubuntu
         reset.yml
-- pipeline: "Delete"
+- pipeline: "Delete openstack cluster"
   trigger_mode: "MANUAL"
   ref_name: "master"
   actions:
@@ -62,8 +62,12 @@
     docker_image_name: "rodis/ansible-builder"
     docker_image_tag: "latest"
     execute_commands:
-    - "ansible-playbook delete.yml"
-- pipeline: "Nuke"
+    - >
+        ansible-playbook
+        -e 'zone=$ZONE'
+        -e 'environment=$ENVIRONMENT'
+        delete.yml
+- pipeline: "Nuke openstack cluster"
   trigger_mode: "MANUAL"
   ref_name: "master"
   actions:
@@ -72,4 +76,8 @@
     docker_image_name: "rodis/ansible-builder"
     docker_image_tag: "latest"
     execute_commands:
-    - "ansible-playbook nuke.yml"
+    - >
+        ansible-playbook
+        -e 'zone=$ZONE'
+        -e 'environment=$ENVIRONMENT'
+        nuke.yml
