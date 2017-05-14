@@ -10,7 +10,6 @@
     - "env"
     - >
         ansible-playbook
-        --private-key /root/.ssh/k8s
         -e @environments/$ZONE-$ENVIRONMENT.json
         -e 'zone=$ZONE'
         -e 'environment=$ENVIRONMENT'
