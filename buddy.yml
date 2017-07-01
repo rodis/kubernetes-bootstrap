@@ -50,7 +50,7 @@
         ansible-playbook
         --private-key /root/.ssh/k8s
         -e reset_confirmation=yes
-        -s -u ubuntu
+        -vvv -s -u ubuntu
         reset.yml
 - pipeline: "Delete openstack cluster"
   trigger_mode: "MANUAL"
