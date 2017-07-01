@@ -4,5 +4,6 @@
   "masters_flavor": "m1.tiny.k8s",
   "nodes_flavor": "m1.small.k8s",
   "image": "3d367e30-32c3-4a68-9c56-98af453f76ef",
-  "security_groups": "default"
+  "security_groups": "default",
+  "zone": "juju"
 }
