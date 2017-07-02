@@ -10,9 +10,7 @@
     - "env"
     - >
         ansible-playbook
-        -e @environments/$ZONE-$ENVIRONMENT.json
-        -e 'zone=$ZONE'
-        -e 'environment=$ENVIRONMENT'
+        -e @environments/$ENV_FILE.json
         up.yml
   - action: "Build Kubernetes"
     type: "BUILD"
@@ -24,6 +22,7 @@
     - >
         ansible-playbook
         -i inventory
+        -e @environments/$ENV_FILE.json
         -e '.kargo/inventory/group_vars/all.yml'
         -e '.kargo/inventory/group_vars/k8s-cluster.yml'
         -e 'bootstrap_os=ubuntu'
@@ -49,6 +48,7 @@
     - >
         ansible-playbook
         --private-key /root/.ssh/k8s
+        -e @environments/$ENV_FILE.json
         -e reset_confirmation=yes
         -vvv -s -u ubuntu
         reset.yml
@@ -63,8 +63,7 @@
     execute_commands:
     - >
         ansible-playbook
-        -e 'zone=$ZONE'
-        -e 'environment=$ENVIRONMENT'
+        -e @environments/$ENV_FILE.json
         delete.yml
 - pipeline: "Nuke openstack cluster"
   trigger_mode: "MANUAL"
@@ -77,6 +76,5 @@
     execute_commands:
     - >
         ansible-playbook
-        -e 'zone=$ZONE'
-        -e 'environment=$ENVIRONMENT'
+        -e @environments/$ENV_FILE.json
         nuke.yml
