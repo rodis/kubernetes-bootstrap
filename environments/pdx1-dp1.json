@@ -1,0 +1,9 @@
+{
+  "masters_num": "2",
+  "nodes_num": "3",
+  "masters_flavor": "dp1.base",
+  "nodes_flavor": "dp1.medium",
+  "image": "a9d48bcf-daab-4465-9954-5dd5de6944e9",
+  "security_groups": "default",
+  "environment": "dp1"
+}
