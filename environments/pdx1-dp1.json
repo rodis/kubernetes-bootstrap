@@ -6,5 +6,6 @@
   "image": "a9d48bcf-daab-4465-9954-5dd5de6944e9",
   "security_groups": "default",
   "environment": "dp1",
-  "zone": "pdx1"
+  "zone": "pdx1",
+  "key_name": "k8s-pdx1-dp1"
 }
