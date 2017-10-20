@@ -64,6 +64,7 @@
     - >
         ansible-playbook
         -e @environments/$ENV_FILE.json
+        -vvv
         delete.yml
 - pipeline: "Nuke openstack cluster"
   trigger_mode: "MANUAL"
