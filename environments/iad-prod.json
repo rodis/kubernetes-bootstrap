@@ -5,5 +5,5 @@
   "nodes_flavor": "gp1.warpspeed",
   "image": "2c84a3bf-6858-41d5-8724-d6a45f771f20",
   "security_groups": "default",
-  "environment": "prod"
+  "deployment": "prod"
 }

@@ -8,6 +8,6 @@ security_groups:
   - 'k8s'
 key_name: 'k8s'
 zone: 'iad'
-environment: 'stage'
+deployment: 'stage'
 application: 'k8s'
-prefix: '{{zone}}-{{environment}}-{{application}}'
+prefix: '{{zone}}-{{deployment}}-{{application}}'
