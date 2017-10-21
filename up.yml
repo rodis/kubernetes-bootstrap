@@ -59,7 +59,7 @@
 
     - add_host: name={{item.server.public_v4}}
                 groups=created_nodes
-                instance_name={{item.server.name}}
+                ansible_host={{item.server.name}}
       with_items: "{{kube_nodes.results}}"
 
 - name: Configure nodes
