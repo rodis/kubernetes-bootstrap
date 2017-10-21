@@ -22,6 +22,10 @@
         security_groups: "{{security_groups}}"
         meta:
           group: kube-master
+        userdata: |
+          #cloud-config
+          hostname: "{{item}}"
+          manage_etc_hosts: true
       register: kube_masters
       with_sequence: count={{masters_num}} format={{prefix}}-master-%d
 
