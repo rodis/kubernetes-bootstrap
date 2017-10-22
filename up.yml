@@ -29,10 +29,10 @@
       register: kube_masters
       with_sequence: count={{masters_num}} format={{prefix}}-master-%d
 
-    - add_host: name={{item.server.name}}
+    - add_host: name={{item.server.public_v4}}
                 groups=created_nodes
                 ansible_user=ubuntu
-                ansible_host={{item.server.public_v4}}
+                instance_name={{item.server.name}}
       with_items: "{{kube_masters.results}}"
 
     - name: Create ports for the kube nodes
@@ -57,9 +57,9 @@
       register: kube_nodes
       with_sequence: count={{nodes_num}} format={{prefix}}-node-%d
 
-    - add_host: name={{item.server.name}}
+    - add_host: name={{item.server.public_v4}}
                 groups=created_nodes
-                ansible_host={{item.server.public_v4}}
+                hostname={{item.server.name}}
       with_items: "{{kube_nodes.results}}"
 
 - name: Configure nodes
