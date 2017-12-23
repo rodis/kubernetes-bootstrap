@@ -28,7 +28,6 @@
         -e 'bootstrap_os=ubuntu'
         -e 'nginx_kube_apiserver_port=8443'
         -e 'kube_network_plugin=flannel'
-        -e 'cloud_provider=openstack'
         -e 'helm_enabled=True'
         --ssh-extra-args='-o StrictHostKeyChecking=no'
         --private-key /root/.ssh/k8s
