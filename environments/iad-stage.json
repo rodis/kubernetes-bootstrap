@@ -3,6 +3,6 @@
   "nodes_num": "3",
   "masters_flavor": "gp1.supersonic",
   "nodes_flavor": "gp1.supersonic",
-  "image": "2c84a3bf-6858-41d5-8724-d6a45f771f20",
+  "image": "27dd50aa-8b7f-48ab-b95a-299f9878b81c",
   "security_groups": "default"
 }
